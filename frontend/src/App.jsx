@@ -200,6 +200,11 @@ function App() {
           </tbody>
         </table>
       </section>
+
+      <footer className="comeback">
+        <p>🔄 Rankings shift every day as prizes get claimed.</p>
+        <p className="comeback-cta">Come back tomorrow — your next best bet might not be today's.</p>
+      </footer>
     </div>
   )
 }

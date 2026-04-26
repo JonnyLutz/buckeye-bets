@@ -355,3 +355,20 @@ td.zero { color: #ef4444; }
   line-height: 20px;
   padding-left: 6px;
 }
+
+/* ── Comeback Footer ── */
+.comeback {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem 1rem;
+  border-top: 1px solid #1a1a1a;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.comeback-cta {
+  margin-top: 0.4rem;
+  color: #fbbf24;
+  font-weight: 600;
+  font-size: 1rem;
+}
