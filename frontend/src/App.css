@@ -1,0 +1,348 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: #888;
+}
+
+/* ── Hero Header ── */
+.hero {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #eab308);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+/* ── Section Titles ── */
+.section-title {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+/* ── Top Picks Hero Cards ── */
+.top-picks {
+  margin: 2rem 0;
+}
+
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .hero-cards { grid-template-columns: 1fr; }
+}
+
+.hero-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.hero-card.tier-hot::before,
+.hero-card.tier-jackpot::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+.hero-card.tier-solid::before { background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
+.hero-card.tier-meh::before { background: #444; }
+
+.hero-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(245, 158, 11, 0.15);
+}
+
+.hero-rank { font-size: 1.8rem; margin-bottom: 0.25rem; }
+.hero-name { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 0.15rem; }
+.hero-price { font-size: 0.85rem; color: #888; margin-bottom: 0.75rem; }
+
+.hero-ev { margin-bottom: 0.75rem; }
+.hero-ev-value { font-size: 1.6rem; font-weight: 700; color: #22c55e; }
+.hero-ev-label { display: block; font-size: 0.75rem; color: #666; }
+
+.hero-tier {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+}
+
+/* ── Tier Colors ── */
+.tier-jackpot { color: #fbbf24; }
+.tier-hot { color: #f97316; }
+.tier-solid { color: #60a5fa; }
+.tier-meh { color: #888; }
+.tier-cold { color: #64748b; }
+.tier-none { color: #444; }
+
+/* ── Tier Badges ── */
+.tier-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.tier-badge.tier-jackpot { background: #fbbf2422; border: 1px solid #fbbf2444; }
+.tier-badge.tier-hot { background: #f9731622; border: 1px solid #f9731644; }
+.tier-badge.tier-solid { background: #60a5fa22; border: 1px solid #60a5fa44; }
+.tier-badge.tier-meh { background: #88888822; border: 1px solid #88888844; }
+.tier-badge.tier-cold { background: #64748b22; border: 1px solid #64748b44; }
+.tier-badge.tier-none { background: #1a1a1a; border: 1px solid #333; }
+
+/* ── Return Meter ── */
+.return-meter {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 4px;
+  height: 22px;
+  min-width: 90px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.meter-jackpot { background: linear-gradient(90deg, #22c55e88, #22c55e); }
+.meter-hot { background: linear-gradient(90deg, #f9731644, #f97316aa); }
+.meter-solid { background: linear-gradient(90deg, #60a5fa33, #60a5fa88); }
+.meter-meh { background: #88888844; }
+.meter-cold { background: #64748b33; }
+
+.meter-label {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 22px;
+  padding-left: 8px;
+  color: #fff;
+}
+
+.no-data { color: #444; }
+
+/* ── All Games Section ── */
+.all-games { margin-top: 2.5rem; }
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  padding: 0.4rem 1rem;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.1s;
+}
+
+.filters button:hover { border-color: #555; color: #fff; }
+
+.filters button.active {
+  background: linear-gradient(135deg, #f59e0b, #eab308);
+  border-color: transparent;
+  color: #000;
+  font-weight: 600;
+}
+
+.count {
+  color: #666;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; }
+
+th {
+  background: #111;
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.8rem;
+  color: #888;
+  border-bottom: 2px solid #222;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+th:hover { color: #fbbf24; }
+
+td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid #151515;
+  font-size: 0.9rem;
+}
+
+.game-name-cell { font-weight: 500; color: #fff; }
+
+tr:hover { background: #151515; }
+tr.depleted { opacity: 0.4; }
+tr.clickable { cursor: pointer; }
+td.zero { color: #ef4444; }
+.prize-val { font-weight: 600; color: #fbbf24; }
+
+/* ── EV indicators ── */
+.positive-ev { color: #22c55e; font-weight: 600; }
+.ev-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.2); }
+}
+
+/* ── Game Detail ── */
+.detail h3 {
+  margin: 1.5rem 0 0.75rem;
+  color: #888;
+  font-size: 1rem;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.detail-header h2 { font-size: 1.5rem; }
+.game-num { color: #555; font-size: 0.9rem; font-weight: 400; }
+
+.detail-tier {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid #333;
+  color: #888;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  transition: all 0.1s;
+}
+.back-btn:hover { color: #fff; border-color: #555; }
+
+.detail-stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  background: #111;
+  border: 1px solid #1a1a1a;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  min-width: 110px;
+}
+
+.stat.glow {
+  border-color: #22c55e33;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.05);
+}
+
+.stat label {
+  display: block;
+  font-size: 0.7rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stat span { font-size: 1.1rem; font-weight: 500; }
+
+/* ── Prize tier percentage bar ── */
+.pct-bar {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 4px;
+  height: 20px;
+  min-width: 80px;
+  overflow: hidden;
+}
+
+.pct-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  background: linear-gradient(90deg, #2563eb33, #2563eb66);
+  border-radius: 4px;
+}
+
+.pct-bar span {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  line-height: 20px;
+  padding-left: 6px;
+}
