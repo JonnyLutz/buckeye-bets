@@ -147,6 +147,11 @@ function App() {
       <header className="hero">
         <h1>🎰 BuckeyeBets</h1>
         <p className="subtitle">The math behind the scratch. Updated daily at 6 AM.</p>
+        <p className="hero-desc">
+          We analyze every active Ohio scratch-off using live prize data straight from the Ohio Lottery. 
+          Our models calculate the true expected return on each ticket — factoring in remaining prizes, 
+          odds, and payout structure — so you can play with data, not hunches.
+        </p>
       </header>
 
       {topPicks.length > 0 && (
