@@ -1,6 +1,9 @@
 from typing import Optional
+from pathlib import Path
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from backend.db.database import get_conn, init_db
 from backend.scrapers.scratchoff import run as run_scrape
 from backend.scrapers.prizes import run as run_prize_scrape
@@ -8,6 +11,8 @@ from backend.ev import calculate_all_ev
 
 app = FastAPI(title="BuckeyeBets")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+DIST = Path(__file__).parent.parent.parent / "frontend" / "dist"
 
 
 @app.on_event("startup")
@@ -129,3 +134,15 @@ def trigger_prize_scrape():
     games = run_prize_scrape()
     count = calculate_all_ev()
     return {"games_with_prizes": len(games), "ev_calculated": count}
+
+
+# Serve frontend static files (must be after API routes)
+if DIST.exists():
+    app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
+
+    @app.get("/{full_path:path}")
+    def serve_spa(full_path: str):
+        file = DIST / full_path
+        if file.is_file():
+            return FileResponse(file)
+        return FileResponse(DIST / "index.html")

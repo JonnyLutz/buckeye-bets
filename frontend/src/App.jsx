@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 
-const API = 'http://localhost:8000/api/scratchoff'
+const API = '/api/scratchoff'
 const PRICES = [1, 2, 5, 10, 20, 30, 50]
 
 const getTier = (pct) => {
