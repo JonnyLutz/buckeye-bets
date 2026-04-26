@@ -6,7 +6,7 @@ from backend.scrapers.scratchoff import run as run_scrape
 from backend.scrapers.prizes import run as run_prize_scrape
 from backend.ev import calculate_all_ev
 
-app = FastAPI(title="Ohio Lottery Scratch-Off Analyzer")
+app = FastAPI(title="BuckeyeBets")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 

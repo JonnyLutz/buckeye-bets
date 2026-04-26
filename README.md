@@ -1,4 +1,4 @@
-# 🎰 Ohio Scratch-Off Analyzer
+# 🎰 BuckeyeBets
 
 Find the best Ohio Lottery scratch-off tickets using math, not luck.
 

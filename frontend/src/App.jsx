@@ -145,8 +145,8 @@ function App() {
   return (
     <div className="app">
       <header className="hero">
-        <h1>🎰 Ohio Scratch-Off Analyzer</h1>
-        <p className="subtitle">The math behind the magic. Updated daily at 6 AM.</p>
+        <h1>🎰 BuckeyeBets</h1>
+        <p className="subtitle">The math behind the scratch. Updated daily at 6 AM.</p>
       </header>
 
       {topPicks.length > 0 && (
