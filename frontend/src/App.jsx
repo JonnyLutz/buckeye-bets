@@ -15,7 +15,18 @@ const getTier = (pct) => {
 }
 
 function AdSlot({ className }) {
-  return <div className={`ad-slot ${className || ''}`}>Ad</div>
+  useEffect(() => {
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}) } catch (e) {}
+  }, [])
+  return (
+    <div className={`ad-slot ${className || ''}`}>
+      <ins className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-9178963270922830"
+        data-ad-format="auto"
+        data-full-width-responsive="true" />
+    </div>
+  )
 }
 
 function ReturnMeter({ pct }) {
