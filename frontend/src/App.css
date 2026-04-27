@@ -390,3 +390,127 @@ td.zero { color: #ef4444; }
   font-weight: 600;
   font-size: 1rem;
 }
+
+.disclaimer {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: #555;
+  line-height: 1.5;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Affiliate Banner ── */
+.affiliate-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 1px solid #2563eb44;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.affiliate-banner:hover {
+  border-color: #2563eb;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+}
+
+.affiliate-icon { font-size: 1.8rem; }
+.affiliate-text { flex: 1; }
+.affiliate-text strong { display: block; color: #fff; font-size: 0.95rem; }
+.affiliate-text span { font-size: 0.8rem; color: #888; }
+.affiliate-arrow { font-size: 1.2rem; color: #2563eb; }
+
+/* ── Ad Slots ── */
+.ad-slot {
+  background: #111;
+  border: 1px dashed #333;
+  border-radius: 6px;
+  text-align: center;
+  color: #444;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.ad-header {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ad-mid {
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* ── Email Signup ── */
+.email-signup {
+  text-align: center;
+  margin: 2.5rem 0;
+  padding: 2rem 1.5rem;
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+}
+
+.email-signup h3 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.email-signup > p {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.email-form {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.email-form input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.email-form input:focus {
+  outline: none;
+  border-color: #fbbf24;
+}
+
+.email-form button {
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, #f59e0b, #eab308);
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.email-form button:hover {
+  opacity: 0.9;
+}
+
+.email-thanks {
+  color: #22c55e;
+  font-weight: 600;
+}

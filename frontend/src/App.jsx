@@ -3,6 +3,7 @@ import './App.css'
 
 const API = '/api/scratchoff'
 const PRICES = [1, 2, 5, 10, 20, 30, 50]
+const THELOTTER_URL = 'https://oh.thelotter.us/?tl_affid=YOUR_AFFILIATE_ID'
 
 const getTier = (pct) => {
   if (pct == null) return { label: '—', cls: 'tier-none', icon: '' }
@@ -11,6 +12,10 @@ const getTier = (pct) => {
   if (pct >= 65) return { label: 'SOLID', cls: 'tier-solid', icon: '💎' }
   if (pct >= 55) return { label: 'MEH', cls: 'tier-meh', icon: '😐' }
   return { label: 'COLD', cls: 'tier-cold', icon: '🧊' }
+}
+
+function AdSlot({ className }) {
+  return <div className={`ad-slot ${className || ''}`}>Ad</div>
 }
 
 function ReturnMeter({ pct }) {
@@ -39,6 +44,43 @@ function HeroCard({ game, rank, onClick }) {
       </div>
       <ReturnMeter pct={game.return_pct} />
       <div className={`hero-tier ${tier.cls}`}>{tier.icon} {tier.label}</div>
+    </div>
+  )
+}
+
+function AffiliateBanner() {
+  return (
+    <a href={THELOTTER_URL} target="_blank" rel="noopener noreferrer" className="affiliate-banner">
+      <span className="affiliate-icon">🎟️</span>
+      <div className="affiliate-text">
+        <strong>Play Ohio Lottery online</strong>
+        <span>Buy official Powerball & Mega Millions tickets from home with theLotter</span>
+      </div>
+      <span className="affiliate-arrow">→</span>
+    </a>
+  )
+}
+
+function EmailSignup() {
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (email) setSubmitted(true)
+    // TODO: wire to email service (Mailchimp, ConvertKit, etc.)
+  }
+  return (
+    <div className="email-signup">
+      <h3>📬 Get Tomorrow's Best Bets</h3>
+      <p>Daily picks delivered to your inbox before 7 AM.</p>
+      {submitted ? (
+        <p className="email-thanks">✅ You're in! Watch for your first email tomorrow.</p>
+      ) : (
+        <form onSubmit={handleSubmit} className="email-form">
+          <input type="email" placeholder="your@email.com" value={email} onChange={e => setEmail(e.target.value)} required />
+          <button type="submit">Subscribe</button>
+        </form>
+      )}
     </div>
   )
 }
@@ -100,6 +142,8 @@ function GameDetail({ gameNumber, onBack }) {
           </table>
         </>
       )}
+
+      <AffiliateBanner />
     </div>
   )
 }
@@ -145,6 +189,8 @@ function App() {
 
   return (
     <div className="app">
+      <AdSlot className="ad-header" />
+
       <header className="hero">
         <h1>🎰 BuckeyeBets</h1>
         <p className="subtitle">The math behind the scratch. Updated daily at 6 AM.</p>
@@ -163,6 +209,10 @@ function App() {
           </div>
         </section>
       )}
+
+      <AffiliateBanner />
+
+      <AdSlot className="ad-mid" />
 
       <section className="all-games">
         <h2 className="section-title">📋 All Games</h2>
@@ -204,9 +254,16 @@ function App() {
         </div>
       </section>
 
+      <EmailSignup />
+
       <footer className="comeback">
         <p>🔄 Rankings shift every day as prizes get claimed.</p>
         <p className="comeback-cta">Come back tomorrow — your next best bet might not be today's.</p>
+        <p className="disclaimer">
+          BuckeyeBets is for informational and entertainment purposes only. Lottery games involve risk — 
+          never spend more than you can afford to lose. If you or someone you know has a gambling problem, 
+          call <strong>1-800-589-9966</strong> (Ohio Problem Gambling Helpline). Must be 18+ to play.
+        </p>
       </footer>
     </div>
   )
