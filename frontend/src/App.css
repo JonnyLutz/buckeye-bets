@@ -423,7 +423,7 @@ td.zero { color: #ef4444; }
 
 .affiliate-icon { font-size: 1.8rem; }
 .affiliate-text { flex: 1; }
-.affiliate-text strong { display: block; color: #fff; font-size: 0.95rem; }
+.affiliate-text strong { display: block; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem; }
 .affiliate-text span { font-size: 0.8rem; color: #888; }
 .affiliate-arrow { font-size: 1.2rem; color: #2563eb; }
 
