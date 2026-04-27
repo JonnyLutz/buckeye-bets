@@ -120,6 +120,7 @@ function App() {
 
   const filtered = useMemo(() => {
     let list = priceFilter ? games.filter(g => g.price === priceFilter) : games
+    list = list.filter(g => g.ev_value != null)
     return list.slice().sort((a, b) => {
       let av = a[sort.col], bv = b[sort.col]
       if (av == null) return 1
@@ -172,6 +173,7 @@ function App() {
           ))}
         </div>
         <div className="count">{filtered.length} games · sorted by best return</div>
+        <div className="table-wrap">
         <table>
           <thead>
             <tr>
@@ -180,7 +182,7 @@ function App() {
               <th onClick={() => toggleSort('top_prize')}>Top Prize{arrow('top_prize')}</th>
               <th onClick={() => toggleSort('ev_value')}>EV{arrow('ev_value')}</th>
               <th onClick={() => toggleSort('return_pct')}>Return{arrow('return_pct')}</th>
-              <th>Rating</th>
+              <th className="sticky-col">Rating</th>
             </tr>
           </thead>
           <tbody>
@@ -193,12 +195,13 @@ function App() {
                   <td>{g.top_prize}</td>
                   <td>{g.ev_value != null ? `$${g.ev_value.toFixed(2)}` : '—'}</td>
                   <td><ReturnMeter pct={g.return_pct} /></td>
-                  <td><span className={`tier-badge ${tier.cls}`}>{tier.icon} {tier.label}</span></td>
+                  <td className="sticky-col"><span className={`tier-badge ${tier.cls}`}>{tier.icon} {tier.label}</span></td>
                 </tr>
               )
             })}
           </tbody>
         </table>
+        </div>
       </section>
 
       <footer className="comeback">

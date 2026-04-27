@@ -211,7 +211,25 @@ body {
 }
 
 /* ── Table ── */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 table { width: 100%; border-collapse: collapse; }
+
+th.sticky-col,
+td.sticky-col {
+  position: sticky;
+  right: 0;
+  background: #0a0a0a;
+  z-index: 1;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.3);
+}
+
+th.sticky-col {
+  background: #111;
+}
 
 th {
   background: #111;
