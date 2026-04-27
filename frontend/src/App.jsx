@@ -23,6 +23,7 @@ function AdSlot({ className }) {
       <ins className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-9178963270922830"
+        data-ad-slot="7039768836"
         data-ad-format="auto"
         data-full-width-responsive="true" />
     </div>
