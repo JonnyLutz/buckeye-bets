@@ -1,25 +1,35 @@
 from typing import Optional
 from pathlib import Path
+from contextlib import asynccontextmanager
+from datetime import date
+
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
+
 from backend.db.database import get_conn, init_db
 from backend.scrapers.scratchoff import run as run_scrape
 from backend.scrapers.prizes import run as run_prize_scrape
 from backend.ev import calculate_all_ev
 
-app = FastAPI(title="BuckeyeBets")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-DIST = Path(__file__).parent.parent.parent / "frontend" / "dist"
+def _run_refresh():
+    """Run the full refresh pipeline. Errors are logged but never re-raised."""
+    try:
+        run_scrape()
+        run_prize_scrape()
+        calculate_all_ev()
+    except Exception as e:
+        print(f"Auto-refresh failed: {e}")
 
 
-@app.on_event("startup")
-def startup():
+@asynccontextmanager
+async def lifespan(app):
     init_db()
     # Auto-refresh if data is stale (no EV snapshot from today)
-    from datetime import date
     conn = get_conn()
     row = conn.execute(
         "SELECT COUNT(*) as c FROM ev_snapshots WHERE snapshot_date = ?",
@@ -27,12 +37,23 @@ def startup():
     ).fetchone()
     conn.close()
     if row["c"] == 0:
-        try:
-            run_scrape()
-            run_prize_scrape()
-            calculate_all_ev()
-        except Exception as e:
-            print(f"Auto-refresh failed: {e}")
+        _run_refresh()
+
+    # Start background scheduler
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(_run_refresh, CronTrigger(hour=6, minute=0), id="daily_refresh")
+    scheduler.start()
+    app.state.scheduler = scheduler
+
+    yield
+
+    scheduler.shutdown()
+
+
+app = FastAPI(title="BuckeyeBets", lifespan=lifespan)
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+DIST = Path(__file__).parent.parent.parent / "frontend" / "dist"
 
 
 def row_to_dict(row):

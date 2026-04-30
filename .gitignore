@@ -16,3 +16,6 @@ frontend/dist/
 
 # Logs
 *.log
+
+# Hypothesis test cache
+.hypothesis/
