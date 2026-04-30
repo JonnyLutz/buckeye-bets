@@ -5,6 +5,11 @@ const API = '/api/scratchoff'
 const PRICES = [1, 2, 5, 10, 20, 30, 50]
 const THELOTTER_URL = 'https://oh.thelotter.us/?tl_affid=YOUR_AFFILIATE_ID'
 
+// Feature flags — flip to true to re-enable
+const SHOW_ADS = false
+const SHOW_AFFILIATE_BANNER = false
+const SHOW_EMAIL_SIGNUP = false
+
 const getTier = (pct) => {
   if (pct == null) return { label: '—', cls: 'tier-none', icon: '' }
   if (pct >= 100) return { label: 'JACKPOT', cls: 'tier-jackpot', icon: '💰' }
@@ -16,8 +21,10 @@ const getTier = (pct) => {
 
 function AdSlot({ className }) {
   useEffect(() => {
+    if (!SHOW_ADS) return
     try { (window.adsbygoogle = window.adsbygoogle || []).push({}) } catch (e) {}
   }, [])
+  if (!SHOW_ADS) return null
   return (
     <div className={`ad-slot ${className || ''}`}>
       <ins className="adsbygoogle"
@@ -61,6 +68,7 @@ function HeroCard({ game, rank, onClick }) {
 }
 
 function AffiliateBanner() {
+  if (!SHOW_AFFILIATE_BANNER) return null
   return (
     <a href={THELOTTER_URL} target="_blank" rel="noopener noreferrer" className="affiliate-banner">
       <span className="affiliate-icon">🎟️</span>
@@ -76,6 +84,7 @@ function AffiliateBanner() {
 function EmailSignup() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  if (!SHOW_EMAIL_SIGNUP) return null
   const handleSubmit = (e) => {
     e.preventDefault()
     if (email) setSubmitted(true)
